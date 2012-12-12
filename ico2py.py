@@ -49,13 +49,14 @@ def main(args=None):
 
     if real_output_file:
         input_files = args[:-1]
-        output_file = open(args[-1], 'w')
+        output_file = open(args[-1], 'wb')
     else:
         input_files = args
         output_file = StringIO.StringIO()
 
     def write(line=None):
         if line:
+            line = os.linesep.join(line.splitlines())  # Windows fix
             output_file.write(line + os.linesep)
         else:
             output_file.write(os.linesep)
